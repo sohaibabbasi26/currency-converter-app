@@ -61,14 +61,13 @@ module.exports = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         },
-        // hrkt brand green colors
         hrkt: {
           50: 'hsl(153 60% 98%)',
           100: 'hsl(153 55% 95%)',
           200: 'hsl(153 50% 88%)',
           300: 'hsl(153 55% 78%)',
           400: 'hsl(153 65% 58%)',
-          500: 'hsl(153 70% 49%)', // Primary brand green
+          500: 'hsl(153 70% 49%)',
           600: 'hsl(153 70% 42%)',
           700: 'hsl(153 70% 35%)',
           800: 'hsl(153 70% 28%)',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://currency-conv-be.onrender.com';
 
 export default function CurrencyConverter() {
   const [currencies, setCurrencies] = useState([]);
@@ -132,14 +132,12 @@ export default function CurrencyConverter() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-8 px-4">
-      {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-12 animate-fade-in w-full">
           <div className="flex justify-center w-full">
             <div className="text-7xl mb-4 animate-bounce-slow">💱</div>
@@ -154,10 +152,8 @@ export default function CurrencyConverter() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Converter Card */}
           <div className="lg:col-span-2">
             <div className="bg-white bg-opacity-10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white border-opacity-20">
-              {/* Amount Input */}
               <div className="mb-6">
                 <label className="block text-white text-sm font-bold mb-3 uppercase tracking-wide">
                   Amount
@@ -173,9 +169,7 @@ export default function CurrencyConverter() {
                 />
               </div>
 
-              {/* Currency Selectors with Swap Button */}
               <div className="grid md:grid-cols-2 gap-4 mb-6 relative">
-                {/* From Currency */}
                 <div>
                   <label className="block text-white text-sm font-bold mb-3 uppercase tracking-wide">
                     From
@@ -200,7 +194,6 @@ export default function CurrencyConverter() {
                   </div>
                 </div>
 
-                {/* Swap Button */}
                 <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                   <button
                     onClick={swapCurrencies}
@@ -212,7 +205,6 @@ export default function CurrencyConverter() {
                   </button>
                 </div>
 
-                {/* To Currency */}
                 <div>
                   <label className="block text-white text-sm font-bold mb-3 uppercase tracking-wide">
                     To
@@ -238,7 +230,6 @@ export default function CurrencyConverter() {
                 </div>
               </div>
 
-              {/* Mobile Swap Button */}
               <div className="md:hidden flex justify-center mb-6">
                 <button
                   onClick={swapCurrencies}
@@ -248,7 +239,6 @@ export default function CurrencyConverter() {
                 </button>
               </div>
 
-              {/* Historical Date Feature */}
               <div className="mb-6 bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-white border-opacity-20">
                 <div className="flex items-center mb-4">
                   <input
@@ -273,7 +263,6 @@ export default function CurrencyConverter() {
                 )}
               </div>
 
-              {/* Convert Button */}
               <button
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-5 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mb-6 text-xl"
                 onClick={handleConvert}
@@ -310,7 +299,6 @@ export default function CurrencyConverter() {
             </div>
           </div>
 
-          {/* Conversion History Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white bg-opacity-10 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white border-opacity-20 sticky top-8">
               <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-5 flex justify-between items-center">
