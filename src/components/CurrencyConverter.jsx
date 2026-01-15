@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_BASE_URL = 'https://currency-conv-be.onrender.com';
+const API_BASE_URL = 'https://currency-conv-be.onrender.com/api';
 
 export default function CurrencyConverter() {
   const [currencies, setCurrencies] = useState([]);
