@@ -47,51 +47,59 @@ export default function CurrencyConverter() {
     localStorage.setItem('conversionHistory', JSON.stringify(updated));
   };
 
-  const handleConvert = async () => {
-    if (!amount || amount <= 0) {
-      alert('Please enter a valid amount');
-      return;
+ const handleConvert = async () => {
+  if (!amount || amount <= 0) {
+    alert('Please enter a valid amount');
+    return;
+  }
+
+  try {
+    setLoading(true);
+    let response;
+
+    if (useHistorical && selectedDate) {
+      response = await fetch(
+        `${API_BASE_URL}/currencies/historical?date=${selectedDate}&base_currency=${fromCurrency}&currencies=${toCurrency}`
+      );
+    } else {
+      response = await fetch(
+        `${API_BASE_URL}/currencies/latest?base_currency=${fromCurrency}&currencies=${toCurrency}`
+      );
     }
 
-    try {
-      setLoading(true);
-      let response;
-
-      if (useHistorical && selectedDate) {
-        response = await fetch(
-          `${API_BASE_URL}/currencies/historical?date=${selectedDate}&base_currency=${fromCurrency}&currencies=${toCurrency}`
-        );
-      } else {
-        response = await fetch(
-          `${API_BASE_URL}/currencies/latest?base_currency=${fromCurrency}&currencies=${toCurrency}`
-        );
-      }
-
-      const data = await response.json();
-      const rate = data.data[toCurrency];
-      const convertedAmount = (amount * rate).toFixed(2);
-
-      setResult(convertedAmount);
-
-      const conversion = {
-        id: Date.now(),
-        from: fromCurrency,
-        to: toCurrency,
-        amount: parseFloat(amount),
-        result: parseFloat(convertedAmount),
-        rate: rate,
-        date: new Date().toISOString(),
-        historicalDate: useHistorical ? selectedDate : null
-      };
-
-      saveToHistory(conversion);
-    } catch (error) {
-      console.error('Error converting currency:', error);
-      alert('Failed to convert currency. Please try again.');
-    } finally {
-      setLoading(false);
+    const data = await response.json();
+    
+    let rate;
+    if (useHistorical && selectedDate) {
+      const dateKey = Object.keys(data.data)[0];
+      rate = data.data[dateKey][toCurrency];
+    } else {
+      rate = data.data[toCurrency];
     }
-  };
+
+    const convertedAmount = (amount * rate).toFixed(2);
+    
+    setResult(convertedAmount);
+
+    const conversion = {
+      id: Date.now(),
+      from: fromCurrency,
+      to: toCurrency,
+      amount: parseFloat(amount),
+      result: parseFloat(convertedAmount),
+      rate: rate,
+      date: new Date().toISOString(),
+      historicalDate: useHistorical ? selectedDate : null
+    };
+
+    saveToHistory(conversion);
+  } catch (error) {
+    console.error('Error converting currency:', error);
+    alert('Failed to convert currency. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const clearHistory = () => {
     setConversionHistory([]);
@@ -278,7 +286,7 @@ export default function CurrencyConverter() {
                   </span>
                 ) : (
                   <span className="flex items-center justify-center">
-                    <span className="mr-2">🚀</span> Convert Currency
+                    Convert Currency
                   </span>
                 )}
               </button>
